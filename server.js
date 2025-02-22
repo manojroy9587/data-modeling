@@ -1,15 +1,15 @@
 const express = require("express");
 const mongoose = require("mongoose");
-const Task = require("./models/Task"); // Import the Task model
-const User = require("./models/User");
-
+const Task = require("./models/TaskModel"); // Import the Task model
+const User = require("./models/UserModel");
+require("dotenv").config();
 const app = express();
 app.use(express.json());
 
 mongoose
-  .connect("your_mongodb_atlas_connection_string")
+  .connect(process.env.DB_URL)
   .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
+  .catch((err) => console.log("err", err));
 
 app.post("/tasks", async (req, res) => {
   try {
